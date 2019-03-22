@@ -4,11 +4,13 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.1",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react": "^16.6.4",
+    "react-dom": "^16.6.4"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",

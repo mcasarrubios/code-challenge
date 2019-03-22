@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import request from './request';
-import { ARTICLES_QUERY } from './queries';
+import Header from './components/header/header.component';
+import Footer from './components/footer/footer.component';
+import Home from './components/home/home.component';
 
 class App extends Component {
   // definition
@@ -11,19 +12,21 @@ class App extends Component {
     };
   }
 
-  // lifecycle
-  componentWillMount() {
-    request(ARTICLES_QUERY).then(response => {
-      this.setState({ articles: response.data.articles });
-    });
-  }
+  // // lifecycle
+  // componentWillMount() {
+  //   request(ARTICLES_QUERY).then(response => {
+  //     this.setState({ articles: response.data.articles });
+  //   });
+  // }
 
   // Renders
   render() {
     return (
       <div className="App">
-        <h2>Billin code challenge</h2>
-        <pre>{JSON.stringify(this.state.articles, null, 2)}</pre>
+        <Header title="Billin code challenge"></Header>
+        {/* <pre>{JSON.stringify(this.state.articles, null, 2)}</pre> */}
+        <Home></Home>
+        <Footer></Footer>
       </div>
     );
   }
