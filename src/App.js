@@ -26,7 +26,7 @@ class App extends Component {
         <Header title="Billin code challenge"></Header>
         {/* <pre>{JSON.stringify(this.state.articles, null, 2)}</pre> */}
         <Home></Home>
-        <Footer></Footer>
+        <Footer slogan="Made with ❤︎ by mcasarrubios"></Footer>
       </div>
     );
   }

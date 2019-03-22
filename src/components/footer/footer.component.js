@@ -1,9 +1,9 @@
 import React from 'react';
 import './footer.component.css';
 
-const Footer = () => (
+const Footer = ({slogan}) => (
   <section className="footer">
-    <p className="footer-slogan"> Made with love by mcasarrubios</p>
+    <p className="footer-slogan">{slogan}</p>
   </section>
 );
 
