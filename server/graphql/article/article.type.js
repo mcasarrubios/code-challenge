@@ -3,9 +3,7 @@ import {
   GraphQLObjectType,
   GraphQLString,
   GraphQLList,
-  GraphQLSchema,
 } from 'graphql';
-import db from './db';
 
 const articleType = new GraphQLObjectType({
   name: 'Article',
@@ -35,21 +33,4 @@ const articleType = new GraphQLObjectType({
   }),
 });
 
-const Query = new GraphQLObjectType({
-  name: 'Query',
-  description: 'This is a root query',
-  fields: () => ({
-    articles: {
-      type: new GraphQLList(articleType),
-      resolve() {
-        return db.Article.find();
-      },
-    },
-  }),
-});
-
-const Schema = new GraphQLSchema({
-  query: Query,
-});
-
-export default Schema;
+export default articleType;

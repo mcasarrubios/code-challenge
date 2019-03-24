@@ -36,4 +36,6 @@ ${Faker.lorem.paragraphs()}
   }
 });
 
-export default { Article };
+export default {
+  Article
+};
