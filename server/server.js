@@ -16,7 +16,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/graphql', AppController);
+new AppController(app);
 
 app.listen(config.port, () => {
   console.log(`App listening on port ${config.port}`); // eslint-disable-line no-console

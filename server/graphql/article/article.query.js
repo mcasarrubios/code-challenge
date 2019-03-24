@@ -1,6 +1,7 @@
 import {
   GraphQLObjectType,
   GraphQLList,
+  GraphQLString,
 } from 'graphql';
 import articleType from './article.type';
 import ArticleService from '../../services/article.service';
@@ -15,20 +16,21 @@ const Query = new GraphQLObjectType({
     articles: {
       type: new GraphQLList(articleType),
       resolve: async (source, args, context, info)=> {
-        const projections = getProjection(info);
-        const articles = await articleService.findMany({projections: projections});
-        return articles;
+        const projection = getProjection(info);
+        return await articleService.findMany({projection: projection});
       },
     },
     articleById: {
-      type: new GraphQLObjectType(articleType),
+      type: articleType,
       args: {
-        id: { type: GraphQLString },
+        id: {
+          name: 'id',
+          type: GraphQLString
+        },
       },
       resolve: async (source, args, context, info)=> {
-        const projections = getProjection(info);
-        const articles = await articleService.findById(args.id, projections);
-        return articles;
+        const projection = getProjection(info);
+        return await articleService.findById(args.id, projection);
       },
     },
   }),
