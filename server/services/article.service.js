@@ -2,16 +2,17 @@ import db from '../entities/db';
 
 class ArticleService {
 
-  async findMany({conditions, select, options} = {}) {
+  async findMany({conditions, projections, options} = {}) {
     conditions = conditions || {};
-    select = select || '';
+    projections = projections || '';
     options = options || {};
-    const articles = await db.Article.find(conditions, select, options);
+    const articles = await db.Article.find(conditions, projections, options);
     return articles;
   }
 
-  async findById(id) {
-    return db.Article.findById(id);
+  async findById(id, projections) {
+    projections = projections || '';
+    return db.Article.findById(id, projections);
   }
 }
 
