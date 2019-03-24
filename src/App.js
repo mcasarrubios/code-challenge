@@ -25,7 +25,6 @@ class App extends Component {
     return (
       <div className="App">
         <Header title="Billin code challenge"></Header>
-        {/* <pre>{JSON.stringify(this.state.articles, null, 2)}</pre> */}
         <Home requestProvider={request}></Home>
         <Footer slogan="Made with ❤︎ by mcasarrubios"></Footer>
       </div>
