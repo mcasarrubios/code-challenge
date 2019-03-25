@@ -124,3 +124,55 @@ it('[MUTATION ARTICLE_CREATE] creates an article', async (done) => {
   expect(article.author).toEqual('Awesome author');
   done();
 });
+
+it('[MUTATION ARTICLE_CREATE] returns 400 if mandatory fields are missing', async (done) => {
+  const res = await requestData(`mutation {
+    articleCreate(article:{
+      author:"Awesome author",
+    }) {
+      id
+    }
+  }`);
+  expect(res.status).toEqual(400);
+  done();
+});
+
+it('[MUTATION ARTICLE_UPDATE] updates an article', async (done) => {
+  let res = await requestData(`{
+    articles {
+      id
+      author
+    }
+    }`);
+  const article = extractData(res).articles[0];
+  const expected = article.author + ' modified';
+  res = await requestData(`mutation {
+    articleUpdate(id:"${article.id}", article:{
+      author:"${expected}",
+    }) {
+      id
+      author
+    }
+  }`);
+  const modifiedArticle = extractData(res).articleUpdate;
+  expect(modifiedArticle.author).toEqual(expected);
+  done();
+});
+
+it('[MUTATION ARTICLE_DELETE] deletes an article', async (done) => {
+  let res = await requestData(`{
+    articles {
+      id
+      author
+    }
+    }`);
+  const article = extractData(res).articles[0];
+  res = await requestData(`mutation {
+    articleDelete(id:"${article.id}") {
+      id
+    }
+  }`);
+  const deletedArticle = extractData(res).articleDelete;
+  expect(deletedArticle.id).toEqual(article.id);
+  done();
+});
