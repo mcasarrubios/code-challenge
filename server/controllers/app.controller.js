@@ -4,9 +4,7 @@ import Schema from '../graphql/index';
 class AppController {
 
   constructor(app) {
-
     this.register(app);
-
   }
 
   register(app) {
