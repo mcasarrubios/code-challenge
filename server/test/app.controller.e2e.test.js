@@ -104,3 +104,23 @@ it('[QUERY ARTICLE_BY_ID] returned article contains fields', async (done) => {
   }));
   done();
 });
+
+it('[MUTATION ARTICLE_CREATE] creates an article', async (done) => {
+  const res = await requestData(`mutation {
+    articleCreate(article:{
+      author:"Awesome author",
+      tags:["tag1", "tag2"],
+      content:"Awesome content",
+      title: "Awesome title",
+      published:true,
+      excerpt: "Awesome excerpt"
+    }) {
+      id
+      title
+      author
+    }
+  }`);
+  const article = extractData(res).articleCreate;
+  expect(article.author).toEqual('Awesome author');
+  done();
+});
