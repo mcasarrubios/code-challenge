@@ -18,6 +18,14 @@ class ArticleService {
   async create(data) {
     return db.Article.create(data);
   }
+
+  async update(id, data) {
+    return db.Article.findByIdAndUpdate(id,data, {new: true}).exec();
+  }
+
+  async deleteById(id) {
+    return db.Article.findByIdAndRemove(id).exec();
+  }
 }
 
 export default ArticleService;

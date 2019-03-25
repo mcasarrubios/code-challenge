@@ -2,6 +2,7 @@ import {
   GraphQLObjectType,
   GraphQLList,
   GraphQLString,
+  GraphQLNonNull
 } from 'graphql';
 import articleType from './article.type';
 import ArticleService from '../../services/article.service';
@@ -25,7 +26,7 @@ const Query = new GraphQLObjectType({
       args: {
         id: {
           name: 'id',
-          type: GraphQLString
+          type: new GraphQLNonNull(GraphQLString),
         },
       },
       resolve: async (source, args, context, info)=> {
