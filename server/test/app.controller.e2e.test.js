@@ -28,13 +28,10 @@ async function requestData(query) {
     .set(headers);
 }
 
-it('[ARTICLES] returns the articles', async (done) => {
+it('[QUERY ARTICLES] returns the articles', async (done) => {
   const res = await requestData(`{
     articles {
-      author
-      excerpt
       id
-      title
     }
     }`);
   const articles = extractData(res).articles;
@@ -42,7 +39,7 @@ it('[ARTICLES] returns the articles', async (done) => {
   done();
 });
 
-it('[ARTICLES] returned article match fields', async (done) => {
+it('[QUERY ARTICLES] returned article contains fields', async (done) => {
   const res = await requestData(`{
     articles {
       author
@@ -62,7 +59,24 @@ it('[ARTICLES] returned article match fields', async (done) => {
   done();
 });
 
-it('[ARTICLE_BY_ID] returns an article', async (done) => {
+it('[QUERY ARTICLE_BY_ID] returns an article', async (done) => {
+  let res = await requestData(`{
+    articles {
+      id
+    }
+    }`);
+  const expected = extractData(res).articles[0].id;
+  res = await requestData(`{
+    articleById(id:"${expected}") {
+      id
+    }
+  }`);
+  const article = extractData(res).articleById;
+  expect(article.id, expected);
+  done();
+});
+
+it('[QUERY ARTICLE_BY_ID] returned article contains fields', async (done) => {
   let res = await requestData(`{
     articles {
       id
@@ -76,9 +90,17 @@ it('[ARTICLE_BY_ID] returns an article', async (done) => {
       published
       tags
       title
+      id
     }
   }`);
   const article = extractData(res).articleById;
-  expect(article.id, expected);
+  expect(article).toEqual(expect.objectContaining({
+    author: expect.any(String),
+    content: expect.any(String),
+    published: expect.any(Boolean),
+    id: expect.any(String),
+    title: expect.any(String),
+    tags: expect.any(Array),
+  }));
   done();
 });
