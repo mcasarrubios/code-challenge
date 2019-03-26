@@ -4,7 +4,8 @@ const articles = [{
   excerpt: 'Excerpt 1',
   title: 'title 1',
   published: true,
-  tags: ['tag1', 'tag2']
+  tags: ['tag1', 'tag2'],
+  content: 'Content 1',
 }, {
   id: '2',
   author: 'Author 2',

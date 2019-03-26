@@ -9,7 +9,7 @@ const ArticleDetail = ({ articleShowed }) => (
     )}
     </div>
     <input type="checkbox" checked={articleShowed.published} readOnly className="article-published"></input>
-    <p>
+    <p className="article-content">
       {articleShowed.content}
     </p>
   </div>
