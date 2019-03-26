@@ -3,6 +3,7 @@ export const initialState = {
     listItems: [],
     isRequestingItems: false,
     itemsShowed: [],
-    isRequestingItem: false
+    isRequestingItem: false,
+    isEditing: false,
   }
 }

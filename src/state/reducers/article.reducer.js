@@ -10,34 +10,34 @@ function add(items, newItem) {
 
 export const articleReducer = (state, action) => {
   switch (action.type) {
-    
-    case '[article] invalidate':
+
+    case 'INVALIDATE ARTICLES':
       return {
         ...state,
         listItems: [],
         itemsShowed: []
       };
-    
-    case '[articleList] requestItems':
+
+    case 'GET ARTICLES':
       return {
         ...state,
         isRequestingItems: true,
       };
 
-    case '[articleList] itemsRequested':
+    case 'SET ARTICLES':
       return {
         ...state,
         isRequestingItems: false,
         listItems: [...action.payload.items]
       };
 
-    case '[showedArticles] requestItem':
+    case 'GET ARTICLE':
       return {
         ...state,
         isRequestingItem: true,
       };
 
-    case '[showedArticles] itemRequested':
+    case 'SET ARTICLE':
       return {
         ...state,
         isRequestingItem: false,

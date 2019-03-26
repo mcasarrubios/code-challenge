@@ -3,30 +3,21 @@ import { ARTICLES_QUERY } from '../../queries';
 import ArticleList from '../articles/articles-list/article-list.component';
 import WithLoading from '../core/loading/with-loading.component';
 import { useStateValue } from '../../state/provider';
+import { requestingArticles, setArticles } from '../../state/actions/article.action';
 
 const Home = ({ requestProvider }) => {
   const [{ article }, dispatch] = useStateValue();
 
   async function requestArticles() {
-    dispatch({
-      type: '[articleList] requestItems'
-    });
-
+    dispatch(requestingArticles());
     const response = await requestProvider(ARTICLES_QUERY);
-    dispatch({
-      type: '[articleList] itemsRequested',
-      payload: { items: response.data.articles }
-    });
-
+    dispatch(setArticles({ items: response.data.articles }));
   }
 
   async function getArticles() {
-    return article.listItems.length === 0 ? 
-      requestArticles() : 
-      dispatch({
-        type: '[articleList] itemsRequested',
-        payload: { items: article.listItems }
-      });
+    return article.listItems.length === 0 ?
+      requestArticles() :
+      dispatch(setArticles({ items: article.listItems }));
   }
 
   useEffect(() => {
