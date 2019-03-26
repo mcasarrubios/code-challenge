@@ -1,7 +1,10 @@
 const articles = [{
   id: '1',
   author: 'Author 1',
-  excerpt: 'Excerpt 1'
+  excerpt: 'Excerpt 1',
+  title: 'title 1',
+  published: true,
+  tags: ['tag1', 'tag2']
 }, {
   id: '2',
   author: 'Author 2',
