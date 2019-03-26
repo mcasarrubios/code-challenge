@@ -10,6 +10,14 @@ function add(items, newItem) {
 
 export const articleReducer = (state, action) => {
   switch (action.type) {
+    
+    case '[article] invalidate':
+      return {
+        ...state,
+        listItems: [],
+        itemsShowed: []
+      };
+    
     case '[articleList] requestItems':
       return {
         ...state,
@@ -33,8 +41,7 @@ export const articleReducer = (state, action) => {
       return {
         ...state,
         isRequestingItem: false,
-        showedItems: add(state.showedArticles.items, action.payload.item),
-        selectedItem: action.payload.item
+        itemsShowed: add(state.itemsShowed, action.payload.item),
       };
 
     default:

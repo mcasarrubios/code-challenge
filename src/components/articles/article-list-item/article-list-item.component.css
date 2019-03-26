@@ -1,3 +1,9 @@
+a {
+  text-decoration: none;
+  text-decoration-color: none;
+  color: #686868;
+}
+
 .card {
   border: 1px solid #efefef;
   border-radius: 4px;
@@ -12,3 +18,4 @@
 .card-header-subtitle {
   color: #979797;
 }
+
