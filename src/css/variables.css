@@ -1,0 +1,11 @@
+:root {
+  --primary-bg-color: #03a9f4;
+  --secondary-bg-color: white;
+  
+  --primary-text-color: #585858;
+  --secondary-text-color: #979797;
+}
+
+.card {
+  --background-color: #f7f7f7;
+}

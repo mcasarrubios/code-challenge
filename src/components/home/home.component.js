@@ -6,7 +6,7 @@ import { useStateValue } from '../../state/provider';
 import { requestingArticles, setArticles } from '../../state/actions/article.action';
 
 const Home = ({ requestProvider }) => {
-  const [{ article }, dispatch] = useStateValue();
+  const [{ articleState }, dispatch] = useStateValue();
 
   async function requestArticles() {
     dispatch(requestingArticles());
@@ -15,9 +15,9 @@ const Home = ({ requestProvider }) => {
   }
 
   async function getArticles() {
-    return article.listItems.length === 0 ?
+    return articleState.listItems.length === 0 ?
       requestArticles() :
-      dispatch(setArticles({ articles: article.listItems }));
+      dispatch(setArticles({ articles: articleState.listItems }));
   }
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const Home = ({ requestProvider }) => {
 
   return (
     <div>
-      {WithLoading(ArticleList)({articles: article.listItems,  isLoading: article.isRequestingItems})}
+      {WithLoading(ArticleList)({articles: articleState.listItems,  isLoading: articleState.isRequestingItems})}
     </div>
   );
 };

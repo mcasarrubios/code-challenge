@@ -1,27 +1,28 @@
 import React, { useEffect } from 'react';
+import apiService from '../../../services/api.service';
 import { ARTICLE_BY_ID_QUERY } from '../../../queries';
 import WithLoading from '../../core/loading/with-loading.component';
 import ArticleDetail from '../article-detail/article-detail.component';
 import ArticleDetailEdit from '../article-detail-edit/article-detail-edit.component';
-import ArticleActions from '../article-actions/article-actions.component'
+import ArticleBtnActions from '../article-btn-actions/article-btn-actions.component'
 import { useStateValue } from '../../../state/provider';
 import { requestingArticle, setArticle } from '../../../state/actions/article.action';
 
 const ArticleDetailPage = ({requestProvider, match}) => {
-  const [{ article }, dispatch] = useStateValue();
+  const [{ articleState }, dispatch] = useStateValue();
   const articleId = match.params.id;
-  const articleShowed = article.itemsShowed.find(item => item.id === articleId) || {};
+  const article = articleState.itemsShowed.find(item => item.id === articleId) || {};
 
   async function requestArticle() {
     dispatch(requestingArticle());
-    const response = await requestProvider(ARTICLE_BY_ID_QUERY(articleId));
+    const response = await requestProvider(ARTICLE_BY_ID_QUERY, {id: articleId});
     dispatch(setArticle({ article: response.data.articleById }));
   }
 
   async function getArticle() {
-    return articleShowed.id === undefined ?
+    return article.id === undefined ?
       requestArticle() :
-      dispatch(setArticle({ article: articleShowed }));
+      dispatch(setArticle({ article: article }));
   }
 
   useEffect(() => {
@@ -30,15 +31,15 @@ const ArticleDetailPage = ({requestProvider, match}) => {
 
   const ArticleReadOnly = () => (
     <div>
-      <ArticleActions article={articleShowed}></ArticleActions>
-      {WithLoading (ArticleDetail)({articleShowed: articleShowed,  isLoading: article.isRequestingItem})}
+      <ArticleBtnActions article={article}></ArticleBtnActions>
+      {WithLoading (ArticleDetail)({article: article,  isLoading: articleState.isRequestingItem})}
     </div>
   );
 
   return (
     <div>
-      { article.isEditing ?
-        <ArticleDetailEdit article={articleShowed} /> :
+      { articleState.isEditing ?
+        <ArticleDetailEdit article={article} requestProvider={apiService} /> :
         <ArticleReadOnly />
       }
     </div>

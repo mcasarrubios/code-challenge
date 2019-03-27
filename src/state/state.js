@@ -1,5 +1,5 @@
 export const initialState = {
-  article: {
+  articleState: {
     listItems: [],
     isRequestingItems: false,
     itemsShowed: [],

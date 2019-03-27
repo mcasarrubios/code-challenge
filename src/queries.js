@@ -7,8 +7,8 @@ export const ARTICLES_QUERY = `{
   }
 }`;
 
-export const ARTICLE_BY_ID_QUERY = (id) =>  `{
-  articleById(id:"${id}") {
+export const ARTICLE_BY_ID_QUERY =  `query ArticleById($id: String!) {
+  articleById(id: $id) {
     id
     author
     content

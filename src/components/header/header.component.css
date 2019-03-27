@@ -1,5 +1,7 @@
+@import '../../css/style.css';
+
 .header {
-  background-color: #03a9f4;
+  background-color: var(--primary-bg-color);
 }
 
 .header-title {

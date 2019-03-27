@@ -1,5 +1,7 @@
+@import '../../css/style.css';
+
 .footer {
-  background-color: #03a9f4;
+  background-color: var(--primary-bg-color);
 }
 
 .footer-slogan {

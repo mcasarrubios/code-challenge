@@ -2,18 +2,12 @@ import React from 'react';
 import { editingArticle, deletingArticle } from '../../../state/actions/article.action';
 import { useStateValue } from '../../../state/provider';
 
-const ArticleActions = ({article}) => {
+const ArticleBtnActions = ({article}) => {
   const dispatch = useStateValue().pop();
 
   const editArticle = () => dispatch(editingArticle({isEditing: true, article}));
   const createArticle = () => dispatch(editingArticle({isEditing: true, article: {} }));
   const deleteArticle = () => dispatch(deletingArticle({article}));
-
-  // const saveArticle = () => {
-  //   dispatch(savingArticle({article}));
-  //   const response = await requestProvider(ARTICLES_UPDATE(article.id));
-  //   dispatch(articleSaved({ article }));
-  // };
 
   return (
     <div>
@@ -30,4 +24,4 @@ const ArticleActions = ({article}) => {
   )
 }
 
-export default ArticleActions;
+export default ArticleBtnActions;
