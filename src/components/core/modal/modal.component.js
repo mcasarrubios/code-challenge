@@ -13,21 +13,23 @@ const Body = ({body}) => (
   </div>
 );
 
-const Footer = ({okText, cancelText}) => (
+const Footer = ({confirmText, cancelText, onCancel, onConfirm}) => (
   <div className="modal-footer">
-    { cancelText ? <button onClick={cancel}> {cancelText} </button> : null }
-    { okText ? <button onClick={cancel}> {okText} </button> : null }
+    { cancelText ? <button onClick={() => onCancel()}> {cancelText} </button> : null }
+    { confirmText ? <button onClick={() => onConfirm()}> {confirmText} </button> : null }
   </div>
 );
 
-const Modal = ({header, body, okText, cancelText }) => (
-  <div className="modal">
-    <div className="modal-content">
-      { header ? <Header /> : null }
-      { body ? <Body /> : null }
-      <Footer />
+const Modal = (props) => {
+  return (
+    <div className="modal">
+      <div className="modal-content">
+        { props.header ? <Header {...props} /> : null }
+        { props.body ? <Body {...props} /> : null }
+        <Footer {...props} />
+      </div>
     </div>
-  </div>
-);  
+  )
+};
 
 export default Modal;

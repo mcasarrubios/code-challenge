@@ -53,10 +53,17 @@ export function articleSaved({article}) {
   }
 }
 
-export function deletingArticle({article}) {
+export function askForDeletingArticle({askDeleteItem}) {
+  return {
+    type: 'ASK DELETE ARTICLE',
+    askDeleteItem
+  }
+}
+
+export function deletingArticle({isDeletingItem}) {
   return {
     type: 'DELETING ARTICLE',
-    article
+    isDeletingItem
   }
 }
 

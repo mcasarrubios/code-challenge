@@ -16,9 +16,9 @@ const Home = ({ requestProvider }) => {
   }
 
   async function getArticles() {
-    return articleState.listItems.length === 0 ?
+    return articleState.itemList.length === 0 ?
       requestArticles() :
-      dispatch(setArticles({ articles: articleState.listItems }));
+      dispatch(setArticles({ articles: articleState.itemList }));
   }
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const Home = ({ requestProvider }) => {
 
   return (
     <div>
-      {WithLoading(ArticleListComponent)({articles: articleState.listItems,  isLoading: articleState.isRequestingItems})}
+      {WithLoading(ArticleListComponent)({articles: articleState.itemList,  isLoading: articleState.isRequestingItems})}
     </div>
   );
 };

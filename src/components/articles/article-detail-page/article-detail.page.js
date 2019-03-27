@@ -8,7 +8,7 @@ import ArticleBtnActions from '../article-btn-actions/article-btn-actions.compon
 import { useStateValue } from '../../../state/provider';
 import { requestingArticle, setArticle, editingArticle } from '../../../state/actions/article.action';
 
-const ArticleDetailPage = ({requestProvider, match}) => {
+const ArticleDetailPage = ({requestProvider, match, history}) => {
   const [{ articleState }, dispatch] = useStateValue();
   const articleId = match.params.id;
   const article = articleState.itemsShowed.find(item => item.id === articleId) || {};
@@ -26,14 +26,16 @@ const ArticleDetailPage = ({requestProvider, match}) => {
   }
 
   useEffect(() => {
-    articleId === 'new' ? 
+    articleId === 'new' ?
       dispatch(editingArticle({isEditing: true, article: {} })) :
       getArticle();
   }, []);
 
+  const onDelete = () => history.goBack();
+
   const ArticleReadOnly = () => (
     <div>
-      <ArticleBtnActions article={article}></ArticleBtnActions>
+      <ArticleBtnActions article={article} requestProvider={requestProvider} onDelete={onDelete}></ArticleBtnActions>
       {WithLoading (ArticleDetail)({article: article,  isLoading: articleState.isRequestingItem})}
     </div>
   );

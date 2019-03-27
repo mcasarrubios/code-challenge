@@ -8,8 +8,8 @@ function add(items, newItem) {
   }
 }
 
-function remove(items, deletedItem) {
-  const index = items.findIndex(item => item.id === deletedItem.id);
+function remove(items, deletedItemId) {
+  const index = items.findIndex(item => item.id === deletedItemId);
 
   if (index === -1) {
     return items;
@@ -24,7 +24,7 @@ export const articleReducer = (state, action) => {
     case 'INVALIDATE ARTICLES':
       return {
         ...state,
-        listItems: [],
+        itemList: [],
         itemsShowed: []
       };
 
@@ -38,7 +38,7 @@ export const articleReducer = (state, action) => {
       return {
         ...state,
         isRequestingItems: false,
-        listItems: [...action.articles]
+        itemList: [...action.articles]
       };
 
     case 'GET ARTICLE':
@@ -72,21 +72,28 @@ export const articleReducer = (state, action) => {
         ...state,
         isSavingItem: false,
         itemsShowed: add(state.itemsShowed, action.article),
-        listItems: add(state.itemsShowed, action.article)
+        itemList: add(state.itemsShowed, action.article)
+      };
+
+    case 'ASK DELETE ARTICLE':
+      return {
+        ...state,
+        askDeleteItem: action.askDeleteItem,
       };
 
     case 'DELETING ARTICLE':
       return {
         ...state,
-        isDeletingItem: true,
+        isDeletingItem: action.isDeletingItem,
       };
 
     case 'ARTICLE DELETED':
       return {
         ...state,
+        askDeleteItem: false,
         isDeletingItem: false,
-        itemsShowed: remove(state.itemsShowed, action.article),
-        listItems: remove(state.itemsShowed, action.article)
+        itemsShowed: remove(state.itemsShowed, action.id),
+        itemList: remove(state.itemsShowed, action.id)
       };
 
     default:

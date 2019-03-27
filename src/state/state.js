@@ -1,10 +1,12 @@
 export const initialState = {
   articleState: {
-    listItems: [],
+    itemList: [],
     isRequestingItems: false,
     itemsShowed: [],
     isRequestingItem: false,
     isEditing: false,
     isSavingItem: false,
+    isDeletingItem: false,
+    askDeleteItem: false
   }
 }
