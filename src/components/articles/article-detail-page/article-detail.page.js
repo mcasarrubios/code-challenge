@@ -13,6 +13,8 @@ const ArticleDetailPage = ({requestProvider, match, history}) => {
   const articleId = match.params.id;
   const article = articleState.itemsShowed.find(item => item.id === articleId) || {};
 
+  console.log('.....', articleId, article);
+
   async function requestArticle() {
     dispatch(requestingArticle());
     const response = await requestProvider(ARTICLE_BY_ID_QUERY, {id: articleId});
@@ -35,13 +37,15 @@ const ArticleDetailPage = ({requestProvider, match, history}) => {
 
   const ArticleReadOnly = () => (
     <div>
-      <ArticleBtnActions article={article} requestProvider={requestProvider} onDelete={onDelete}></ArticleBtnActions>
+      <div className="action-btn pull-right">
+        <ArticleBtnActions article={article} requestProvider={requestProvider} onDelete={onDelete}></ArticleBtnActions>
+      </div>
       {WithLoading (ArticleDetail)({article: article,  isLoading: articleState.isRequestingItem})}
     </div>
   );
 
   return (
-    <div>
+    <div className="article-detail-page">
       { articleState.isEditing ?
         <ArticleDetailEdit article={article} requestProvider={apiService} /> :
         <ArticleReadOnly />

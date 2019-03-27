@@ -1,7 +1,7 @@
 .article-detail-edit {
   padding: 1rem;
   display: grid;
-  grid-gap: 1rem 1rem;
+  grid-gap: 0rem 1rem;
   grid-template-columns: repeat(1, 1fr);
 }
 
@@ -12,28 +12,7 @@
   }
 }
 
-.form-control {
-  margin: 10px;
-  padding: 10px;
-}
-
-.form-control label {
-  display: block;
-}
-
-.form-control input {
-  width: 100%;
-}
-
-.form-control textarea {
-  width: 100%;
-}
-
-.form-control.content {
+.col-span{
   grid-column-start: 1;
   grid-column-end: 3;
-}
-
-.form-control.published input {
-  width: auto;
 }

@@ -15,8 +15,10 @@ const Body = ({body}) => (
 
 const Footer = ({confirmText, cancelText, onCancel, onConfirm}) => (
   <div className="modal-footer">
-    { cancelText ? <button onClick={() => onCancel()}> {cancelText} </button> : null }
-    { confirmText ? <button onClick={() => onConfirm()}> {confirmText} </button> : null }
+    <div className="action-btn pull-right">
+      { cancelText ? <button onClick={() => onCancel()} className="btn btn-secondary"> {cancelText} </button> : null }
+      { confirmText ? <button onClick={() => onConfirm()} className="btn btn-primary"> {confirmText} </button> : null }
+    </div>
   </div>
 );
 

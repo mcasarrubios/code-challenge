@@ -37,11 +37,13 @@ const ArticleBtnActions = ({ article, requestProvider, onDelete }) => {
 
   return (
     <div>
-      <button onClick={editArticle}>
-        Edit
-      </button>
-      <button onClick={deleteArticle}>
+
+      <button onClick={deleteArticle} className="btn btn-secondary">
         Delete
+      </button>
+
+      <button onClick={editArticle} className="btn btn-primary">
+        Edit
       </button>
 
      { articleState.askDeleteItem ? <Modal {...props} /> : null }
