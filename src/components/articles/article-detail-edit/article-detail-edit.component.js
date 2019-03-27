@@ -1,13 +1,26 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './article-detail-edit.component.css';
 import { ARTICLES_UPDATE, ARTICLES_CREATE } from '../../../mutations';
-import { savingArticle, articleSaved } from '../../../state/actions/article.action';
+import { savingArticle, articleSaved, invalidateArticle } from '../../../state/actions/article.action';
 import { useStateValue } from '../../../state/provider';
 
 const ArticleDetailEdit = ({ article, requestProvider }) => {
 
-  const [localState, setState] = useState(article);
+  const [localState, setState] = useState(initialState(article));
   const [articleState, dispatch] = useStateValue();
+
+  function initialState(article) {
+    return {
+      id: article.id || '',
+      title: article.title || '',
+      author: article.author || '',
+      content: article.content || '',
+      excerpt: article.excerpt || '',
+      tags: article.tags || [],
+      published: article.published || false,
+    }
+  }
 
   const handleInputChanges = (event) => {
     const target = event.target;
@@ -24,8 +37,8 @@ const ArticleDetailEdit = ({ article, requestProvider }) => {
     });
   }
 
-  const createArticle = async (data) => {
-    const response = await requestProvider(ARTICLES_CREATE(data));
+  const createArticle = async (article) => {
+    const response = await requestProvider(ARTICLES_CREATE, article);
     return response.data.articleCreate;
   }
 
@@ -42,6 +55,7 @@ const ArticleDetailEdit = ({ article, requestProvider }) => {
       updateArticle(localState) : 
       createArticle(localState);
     dispatch(articleSaved({ article: data }));
+    dispatch(invalidateArticle());
   };
 
   return (
@@ -58,14 +72,19 @@ const ArticleDetailEdit = ({ article, requestProvider }) => {
 
       <div className="form-control">
         <label>Tags</label>
-        <input type="text" name="tags" value={localState.tags.join(' ')} onChange={handleInputChanges} />
+        <input type="text" name="tags" value={localState.tags && localState.tags.join(' ')} onChange={handleInputChanges} />
       </div>
 
       <div className="form-control published">
         <label>
-          <input type="checkbox" checked={localState.published} onChange={handleInputChanges} />
+          <input type="checkbox" name="published" checked={localState.published} onChange={handleInputChanges} />
           &nbsp;Published
         </label>
+      </div>
+
+      <div className="form-control content">
+        <label>Excerpt</label>
+        <textarea rows="5" type="text" name="excerpt" value={localState.excerpt} onChange={handleInputChanges} ></textarea>
       </div>
 
       <div className="form-control content">
@@ -74,6 +93,9 @@ const ArticleDetailEdit = ({ article, requestProvider }) => {
       </div>
 
       <div className="article-actions">
+        <Link to="/"> 
+          Cancelar
+        </Link>
         <button className="primary-button" onClick={saveArticle}> 
           { !articleState.isSavingItem ? 'Guardar    ' : 'Guardando...'}
         </button>

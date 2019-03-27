@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { ARTICLES_QUERY } from '../../queries';
 import ArticleList from '../articles/articles-list/article-list.component';
 import WithLoading from '../core/loading/with-loading.component';
@@ -24,9 +25,18 @@ const Home = ({ requestProvider }) => {
     getArticles()
   },[]);
 
+  const ArticleListComponent = (props) => (
+    <div>
+      <Link to={'/new'}>
+        New
+      </Link>
+      <ArticleList {...props} />
+    </div>
+  );
+
   return (
     <div>
-      {WithLoading(ArticleList)({articles: articleState.listItems,  isLoading: articleState.isRequestingItems})}
+      {WithLoading(ArticleListComponent)({articles: articleState.listItems,  isLoading: articleState.isRequestingItems})}
     </div>
   );
 };

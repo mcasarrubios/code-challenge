@@ -6,7 +6,7 @@ import ArticleDetail from '../article-detail/article-detail.component';
 import ArticleDetailEdit from '../article-detail-edit/article-detail-edit.component';
 import ArticleBtnActions from '../article-btn-actions/article-btn-actions.component'
 import { useStateValue } from '../../../state/provider';
-import { requestingArticle, setArticle } from '../../../state/actions/article.action';
+import { requestingArticle, setArticle, editingArticle } from '../../../state/actions/article.action';
 
 const ArticleDetailPage = ({requestProvider, match}) => {
   const [{ articleState }, dispatch] = useStateValue();
@@ -20,13 +20,15 @@ const ArticleDetailPage = ({requestProvider, match}) => {
   }
 
   async function getArticle() {
-    return article.id === undefined ?
+    article.id === undefined ?
       requestArticle() :
       dispatch(setArticle({ article: article }));
   }
 
   useEffect(() => {
-    getArticle()
+    articleId === 'new' ? 
+      dispatch(editingArticle({isEditing: true, article: {} })) :
+      getArticle();
   }, []);
 
   const ArticleReadOnly = () => (

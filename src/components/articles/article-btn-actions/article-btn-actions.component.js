@@ -6,7 +6,6 @@ const ArticleBtnActions = ({article}) => {
   const dispatch = useStateValue().pop();
 
   const editArticle = () => dispatch(editingArticle({isEditing: true, article}));
-  const createArticle = () => dispatch(editingArticle({isEditing: true, article: {} }));
   const deleteArticle = () => dispatch(deletingArticle({article}));
 
   return (
@@ -16,9 +15,6 @@ const ArticleBtnActions = ({article}) => {
       </button>
       <button onClick={deleteArticle}>
         Delete
-      </button>
-      <button onClick={createArticle}>
-        New
       </button>
     </div>
   )

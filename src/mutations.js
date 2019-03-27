@@ -28,6 +28,7 @@ export const ARTICLES_UPDATE = `mutation ArticleUpdate(
   $id: String!
   $author: String!
   $content: String!
+  $excerpt: String!
   $published: Boolean!
   $tags: [String]
   $title: String!
@@ -37,6 +38,7 @@ export const ARTICLES_UPDATE = `mutation ArticleUpdate(
     author: $author,
     tags: $tags,
     content: $content,
+    excerpt: $excerpt,
     published: $published
   }) {
     id

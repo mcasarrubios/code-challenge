@@ -12,6 +12,7 @@ export const ARTICLE_BY_ID_QUERY =  `query ArticleById($id: String!) {
     id
     author
     content
+    excerpt
     published
     tags
     title
