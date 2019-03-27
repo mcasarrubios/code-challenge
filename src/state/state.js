@@ -5,5 +5,6 @@ export const initialState = {
     itemsShowed: [],
     isRequestingItem: false,
     isEditing: false,
+    isSavingItem: false,
   }
 }

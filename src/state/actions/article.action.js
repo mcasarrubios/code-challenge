@@ -11,22 +11,57 @@ export function requestingArticles() {
   }
 }
 
-export function setArticles(payload) {
+export function setArticles({articles}) {
   return {
     type: 'SET ARTICLES',
-    payload: payload
+    articles
   }
 }
 
-export function requestingArticle(id) {
+export function requestingArticle() {
   return {
     type: 'GET ARTICLE'
   }
 }
 
-export function setArticle(payload) {
+export function setArticle({article}) {
   return {
     type: 'SET ARTICLE',
-    payload: payload
+    article
+  }
+}
+
+export function editingArticle({isEditing, article}) {
+  return {
+    type: 'EDIT ARTICLE',
+    isEditing,
+    article
+  }
+}
+
+export function savingArticle(article) {
+  return {
+    type: 'SAVING ARTICLE',
+    article
+  }
+}
+
+export function articleSaved({article}) {
+  return {
+    type: 'ARTICLE SAVED',
+    article
+  }
+}
+
+export function deletingArticle({article}) {
+  return {
+    type: 'DELETING ARTICLE',
+    article
+  }
+}
+
+export function articleDeleted() {
+  return {
+    type: 'ARTICLE DELETED',
   }
 }

@@ -11,13 +11,13 @@ const Home = ({ requestProvider }) => {
   async function requestArticles() {
     dispatch(requestingArticles());
     const response = await requestProvider(ARTICLES_QUERY);
-    dispatch(setArticles({ items: response.data.articles }));
+    dispatch(setArticles({ articles: response.data.articles }));
   }
 
   async function getArticles() {
     return article.listItems.length === 0 ?
       requestArticles() :
-      dispatch(setArticles({ items: article.listItems }));
+      dispatch(setArticles({ articles: article.listItems }));
   }
 
   useEffect(() => {
