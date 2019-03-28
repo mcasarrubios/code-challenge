@@ -5,7 +5,7 @@ import { ARTICLES_UPDATE, ARTICLES_CREATE } from '../../../mutations';
 import { savingArticle, articleSaved, invalidateArticle, editingArticle } from '../../../state/actions/article.action';
 import { useStateValue } from '../../../state/provider';
 
-const ArticleDetailEdit = ({ article, requestProvider }) => {
+const ArticleDetailEdit = ({ article, requestProvider, onSave }) => {
 
   const [localState, setState] = useState(initialState(article));
   const [articleState, dispatch] = useStateValue();
@@ -28,7 +28,7 @@ const ArticleDetailEdit = ({ article, requestProvider }) => {
     const name = target.name;
 
     if (name === 'tags') {
-      value = value.trim().split(' ').filter(tag => tag);
+      value = value.split(' ');
     }
 
     setState({
@@ -49,13 +49,13 @@ const ArticleDetailEdit = ({ article, requestProvider }) => {
   }
 
   const saveArticle = async () => {
-
-    dispatch(savingArticle({localState}));
-    const data = await article.id ?
-      updateArticle(localState) :
-      createArticle(localState);
-    dispatch(articleSaved({ article: data }));
+    const data = {...localState, tags: localState.tags.filter(tag => tag)}
+    dispatch(savingArticle({data}));
+    const action = article.id ? updateArticle : createArticle;
+    const savedArticle = await action(data);
+    dispatch(articleSaved({ article: savedArticle }));
     dispatch(invalidateArticle());
+    onSave();
   };
 
   const cancel = () => dispatch(editingArticle({isEditing: false, article}));

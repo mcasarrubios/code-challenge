@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { ARTICLES_QUERY } from '../../queries';
 import ArticleList from '../articles/articles-list/article-list.component';
 import WithLoading from '../core/loading/with-loading.component';
@@ -26,6 +27,10 @@ const Home = ({ requestProvider }) => {
 
   return (
     <div>
+
+        <Link to={'/new'} className="btn overlay-btn btn-secondary">
+          +
+        </Link>
       {WithLoading(ArticleList)({articles: articleState.itemList,  isLoading: articleState.isRequestingItems})}
     </div>
   );

@@ -11,14 +11,13 @@ import { requestingArticle, setArticle, editingArticle } from '../../../state/ac
 const ArticleDetailPage = ({requestProvider, match, history}) => {
   const [{ articleState }, dispatch] = useStateValue();
   const articleId = match.params.id;
-  const article = articleState.itemsShowed.find(item => item.id === articleId) || {};
-
-  console.log('.....', articleId, article);
+  let article = articleState.itemsShowed.find(item => item.id === articleId) || {};
 
   async function requestArticle() {
     dispatch(requestingArticle());
     const response = await requestProvider(ARTICLE_BY_ID_QUERY, {id: articleId});
-    dispatch(setArticle({ article: response.data.articleById }));
+    article = response.data.articleById;
+    dispatch(setArticle({ article: article }));
   }
 
   async function getArticle() {
@@ -28,26 +27,34 @@ const ArticleDetailPage = ({requestProvider, match, history}) => {
   }
 
   useEffect(() => {
-    articleId === 'new' ?
-      dispatch(editingArticle({isEditing: true, article: {} })) :
-      getArticle();
+    getArticle();
   }, []);
 
-  const onDelete = () => history.goBack();
+  const onModified = () => history.goBack();
+  const setReadonly = () => dispatch(editingArticle({isEditing: false, article: article }));
 
   const ArticleReadOnly = () => (
     <div>
       <div className="action-btn pull-right">
-        <ArticleBtnActions article={article} requestProvider={requestProvider} onDelete={onDelete}></ArticleBtnActions>
+        <ArticleBtnActions article={articleState.itemSelected} requestProvider={requestProvider} onDelete={onModified}></ArticleBtnActions>
       </div>
-      {WithLoading (ArticleDetail)({article: article,  isLoading: articleState.isRequestingItem})}
+      {WithLoading (ArticleDetail)({article: articleState.itemSelected,  isLoading: articleState.isRequestingItem})}
+    </div>
+  );
+
+  const ArticleEdit = () => (
+    <div>
+      <div className="action-btn pull-right">
+        <button onClick={setReadonly} className="btn btn-secondary"> Readonly </button>
+      </div>
+      <ArticleDetailEdit article={articleState.itemSelected} requestProvider={apiService} onSave={onModified}/>
     </div>
   );
 
   return (
     <div className="article-detail-page">
       { articleState.isEditing ?
-        <ArticleDetailEdit article={article} requestProvider={apiService} /> :
+        <ArticleEdit /> :
         <ArticleReadOnly />
       }
     </div>

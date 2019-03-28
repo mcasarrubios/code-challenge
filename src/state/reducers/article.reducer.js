@@ -52,13 +52,14 @@ export const articleReducer = (state, action) => {
         ...state,
         isRequestingItem: false,
         itemsShowed: add(state.itemsShowed, action.article),
+        itemSelected: action.article
       };
 
     case 'EDIT ARTICLE':
       return {
         ...state,
         isEditing: action.isEditing,
-        itemsShowed: add(state.itemsShowed, action.article),
+        itemsShowed: action.article.id ? add(state.itemsShowed, action.article) : state.itemsShowed,
       };
 
     case 'SAVING ARTICLE':
@@ -72,7 +73,8 @@ export const articleReducer = (state, action) => {
         ...state,
         isSavingItem: false,
         itemsShowed: add(state.itemsShowed, action.article),
-        itemList: add(state.itemsShowed, action.article)
+        itemList: add(state.itemsShowed, action.article),
+        itemSelected: action.article
       };
 
     case 'ASK DELETE ARTICLE':
@@ -93,7 +95,8 @@ export const articleReducer = (state, action) => {
         askDeleteItem: false,
         isDeletingItem: false,
         itemsShowed: remove(state.itemsShowed, action.id),
-        itemList: remove(state.itemsShowed, action.id)
+        itemList: remove(state.itemsShowed, action.id),
+        itemSelected: {}
       };
 
     default:

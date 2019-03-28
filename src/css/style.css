@@ -32,9 +32,9 @@
   color: white;
 }
 
-.action-btn {
+/* .action-btn {
   margin: 1.4rem 2rem;
-}
+} */
 
 .pull-right {
   float: right;
@@ -66,4 +66,19 @@
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #e7e7e7;
+}
+
+.overlay-btn {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  z-index: 1;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bolder;
 }
